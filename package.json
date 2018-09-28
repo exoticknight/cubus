@@ -1,0 +1,46 @@
+{
+  "name": "datacube",
+  "version": "0.0.1",
+  "description": "olap datacube",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exoticknight/datacube.git"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "test": "tape -r ts-node/register test/**/*.spec.ts | faucet",
+    "prebuild": "npm run test"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "olap",
+    "data",
+    "datacube",
+    "olap-data",
+    "hypercube",
+    "dimension",
+    "measure",
+    "table",
+    "cell",
+    "drill down",
+    "business intelligence"
+  ],
+  "author": {
+    "email": "draco.knight0@gmail.com",
+    "name": "exoticknight"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/tape": "^4.2.32",
+    "faucet": "0.0.1",
+    "tape": "^4.9.1",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
+  }
+}
