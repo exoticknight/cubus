@@ -1,3 +1,3 @@
-# mofang
+# cubus
 
 > cubus means cube in Latin.
