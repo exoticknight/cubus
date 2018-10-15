@@ -1,3 +1,3 @@
 # mofang
 
-> mofang means Rubik's Cube in Chinese.
+> cubus means cube in Latin.
