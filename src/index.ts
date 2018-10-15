@@ -10,7 +10,7 @@ export type Bucket<T> = {
   [key:string]:T;
 }
 
-export type DataCubeJSON<T> = {
+export type CubusJSON<T> = {
   dimensions:string[];
   index:Index;
   data:Bucket<T>;
@@ -29,7 +29,7 @@ export type Result<T> = {
   }[]
 }
 
-export default class DataCube<T> {
+export default class Cubus<T> {
   private $$dimensions:string[];
   private $$index:Index;
   private $$bucket:Bucket<T>;
@@ -143,7 +143,7 @@ export default class DataCube<T> {
     return this
   }
 
-  toJSON(splitter?:string):DataCubeJSON<T> {
+  toJSON(splitter?:string):CubusJSON<T> {
     if (splitter && splitter !== this.$$splitter) {
       return {
         dimensions: this.$$dimensions,
@@ -164,7 +164,7 @@ export default class DataCube<T> {
     }
   }
 
-  fromJSON<T>(json:DataCubeJSON<T>):this {
+  fromJSON<T>(json:CubusJSON<T>):this {
     const {dimensions, index, data, splitter=':'} = JSON.parse(JSON.stringify(json))
     this.$$dimensions = dimensions
     this.$$index = index
