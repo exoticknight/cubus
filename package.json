@@ -1,10 +1,10 @@
 {
-  "name": "datacube",
+  "name": "mofang",
   "version": "0.0.1",
   "description": "olap datacube",
   "repository": {
     "type": "git",
-    "url": "https://github.com/exoticknight/datacube.git"
+    "url": "https://github.com/exoticknight/mofang.git"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,6 @@
     "measure",
     "table",
     "cell",
-    "drill down",
     "business intelligence"
   ],
   "author": {

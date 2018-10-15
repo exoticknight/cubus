@@ -2,11 +2,11 @@ function cartesianProduct(a) {
 	return a.reduce((arr, n) => n.reduce((x, ni) => x.concat(arr.map(arri => arri.concat(ni))), []), [[]])
 }
 
-type Index = {
+export type Index = {
   [key:string]:string[];
 }
 
-type Bucket<T> = {
+export type Bucket<T> = {
   [key:string]:T;
 }
 
@@ -24,8 +24,9 @@ export type Query = {
 export type Result<T> = {
   value:T;
   property:{
-    [key:string]:string;
-  }
+    name:string;
+    value:string;
+  }[]
 }
 
 export default class DataCube<T> {
@@ -34,10 +35,10 @@ export default class DataCube<T> {
   private $$bucket:Bucket<T>;
   private $$splitter:string;
 
-  constructor(dimensions:string[], splitter=':', index:Index={}, bucket:Bucket<T>={}) {
+  constructor(dimensions:string[], splitter=':') {
     this.$$dimensions = dimensions
     this.$$index = dimensions.reduce((o, d) => (o[d]=[], o), {})
-    this.$$bucket = bucket
+    this.$$bucket = {}
     this.$$splitter = splitter
   }
 
@@ -73,7 +74,7 @@ export default class DataCube<T> {
         if (this.$$bucket.hasOwnProperty(hashKey)) {
           a.push(raw ? t : {
             value: t,
-            property: k.reduce((o, n) => (o[n.dimension] = n.value,o), {})
+            property: k.reduce((a, n) => (a.push({name:n.dimension, value:n.value}),a), [])
           })
         }
         return a

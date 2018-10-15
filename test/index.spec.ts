@@ -7,7 +7,11 @@ const dimensions = [
   'index'
 ]
 
-test('')
+test('test', function(t) {
+  t.pass()
+
+  t.end()
+})
 
 const cube = new DataCube<number>(dimensions)
 
