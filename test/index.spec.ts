@@ -1,5 +1,5 @@
 import test from 'tape'
-import DataCube from '../src/index'
+import Cubus from '../src/index'
 
 const dimensions = [
   'time',
@@ -13,7 +13,7 @@ test('test', function(t) {
   t.end()
 })
 
-const cube = new DataCube<number>(dimensions)
+const cube = new Cubus<number>(dimensions)
 
 cube.addDimensionValue('time', '20180101')
 cube.addDimensionValue('time', '20180102')
@@ -56,8 +56,8 @@ console.log(cube.query({
 console.log(cube)
 const exportJSON = cube.toJSON()
 console.log(JSON.stringify(exportJSON, null, 2))
-const newDataCube = new DataCube<number>([]).fromJSON(exportJSON)
-console.log(newDataCube)
+const newCubus = new Cubus<number>([]).fromJSON(exportJSON)
+console.log(newCubus)
 
 cube.remove({
   appid: ['wx2']

@@ -23,15 +23,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function cartesianProduct(a) {
     return a.reduce(function (arr, n) { return n.reduce(function (x, ni) { return x.concat(arr.map(function (arri) { return arri.concat(ni); })); }, []); }, [[]]);
 }
-var DataCube = (function () {
-    function DataCube(dimensions, splitter) {
+var Cubus = (function () {
+    function Cubus(dimensions, splitter) {
         if (splitter === void 0) { splitter = ':'; }
         this.$$dimensions = dimensions;
         this.$$index = dimensions.reduce(function (o, d) { return (o[d] = [], o); }, {});
         this.$$bucket = {};
         this.$$splitter = splitter;
     }
-    DataCube.prototype.query = function (query, raw) {
+    Cubus.prototype.query = function (query, raw) {
         var _this = this;
         var hdimensions = this.$$dimensions;
         var qdimensions = Object.keys(query);
@@ -71,7 +71,7 @@ var DataCube = (function () {
             return [];
         }
     };
-    DataCube.prototype.addDimensionValue = function (d, v) {
+    Cubus.prototype.addDimensionValue = function (d, v) {
         if (this.$$dimensions.includes(d)) {
             var idx = this.$$index[d].indexOf(v);
             if (idx < 0) {
@@ -84,12 +84,12 @@ var DataCube = (function () {
         }
         return -1;
     };
-    DataCube.prototype.add = function (raw, property, force) {
+    Cubus.prototype.add = function (raw, property, force) {
         var _this = this;
         if (force === void 0) { force = false; }
         var hdimensions = this.$$dimensions;
         var rdimensions = Object.keys(property);
-        if (rdimensions.length === hdimensions.length && rdimensions.every(function (key) { return hdimensions.includes(key); })) {
+        if (rdimensions.length >= hdimensions.length && hdimensions.every(function (key) { return rdimensions.includes(key); })) {
             var hashKey = hdimensions.map(function (d) {
                 return _this.addDimensionValue(d, property[d]);
             }).join(this.$$splitter);
@@ -99,7 +99,7 @@ var DataCube = (function () {
         }
         return this;
     };
-    DataCube.prototype.remove = function (property) {
+    Cubus.prototype.remove = function (property) {
         var _this = this;
         var hdimensions = this.$$dimensions;
         var qdimensions = Object.keys(property).filter(function (key) { return hdimensions.includes(key); });
@@ -122,11 +122,11 @@ var DataCube = (function () {
         });
         return this;
     };
-    DataCube.prototype.clear = function () {
+    Cubus.prototype.clear = function () {
         this.$$bucket = {};
         return this;
     };
-    DataCube.prototype.toJSON = function (splitter) {
+    Cubus.prototype.toJSON = function (splitter) {
         var _this = this;
         if (splitter && splitter !== this.$$splitter) {
             return {
@@ -148,7 +148,7 @@ var DataCube = (function () {
             };
         }
     };
-    DataCube.prototype.fromJSON = function (json) {
+    Cubus.prototype.fromJSON = function (json) {
         var _a = JSON.parse(JSON.stringify(json)), dimensions = _a.dimensions, index = _a.index, data = _a.data, _b = _a.splitter, splitter = _b === void 0 ? ':' : _b;
         this.$$dimensions = dimensions;
         this.$$index = index;
@@ -156,7 +156,7 @@ var DataCube = (function () {
         this.$$splitter = splitter;
         return this;
     };
-    return DataCube;
+    return Cubus;
 }());
-exports.default = DataCube;
+exports.default = Cubus;
 //# sourceMappingURL=index.js.map

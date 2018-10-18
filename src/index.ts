@@ -84,6 +84,14 @@ export default class Cubus<T> {
     }
   }
 
+  /**
+   * add value to dimension
+   *
+   * @param {string} d dimension name
+   * @param {string} v value
+   * @return {number} postion of the value
+   * @memberof Cubus
+   */
   addDimensionValue(d:string, v:string):number {
     if (this.$$dimensions.includes(d)) {
       const idx = this.$$index[d].indexOf(v)
@@ -97,10 +105,19 @@ export default class Cubus<T> {
     return -1
   }
 
+  /**
+   * add data to the cube， unset value of dimension will be added automatically
+   *
+   * @param {T} raw your data
+   * @param {{[key:string]:string}} property key-value pair of properties
+   * @param {boolean} [force=false] whether to overwrite data
+   * @returns {this}
+   * @memberof Cubus
+   */
   add(raw:T, property:{[key:string]:string}, force:boolean=false):this {
     const hdimensions = this.$$dimensions
     const rdimensions = Object.keys(property)
-    if (rdimensions.length === hdimensions.length && rdimensions.every(key => hdimensions.includes(key))) {
+    if (rdimensions.length >= hdimensions.length && hdimensions.every(key => rdimensions.includes(key))) {
       const hashKey:string = hdimensions.map(d => {
         return this.addDimensionValue(d, property[d])
       }).join(this.$$splitter)

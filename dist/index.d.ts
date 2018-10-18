@@ -4,7 +4,7 @@ export declare type Index = {
 export declare type Bucket<T> = {
     [key: string]: T;
 };
-export declare type DataCubeJSON<T> = {
+export declare type CubusJSON<T> = {
     dimensions: string[];
     index: Index;
     data: Bucket<T>;
@@ -20,7 +20,7 @@ export declare type Result<T> = {
         value: string;
     }[];
 };
-export default class DataCube<T> {
+export default class Cubus<T> {
     private $$dimensions;
     private $$index;
     private $$bucket;
@@ -36,6 +36,6 @@ export default class DataCube<T> {
         [key: string]: string[];
     }): this;
     clear(): this;
-    toJSON(splitter?: string): DataCubeJSON<T>;
-    fromJSON<T>(json: DataCubeJSON<T>): this;
+    toJSON(splitter?: string): CubusJSON<T>;
+    fromJSON<T>(json: CubusJSON<T>): this;
 }
